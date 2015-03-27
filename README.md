@@ -11,7 +11,7 @@
     - cscope
 ##3. Installation
     一行shell搞定安装
-> `bash -c "$( curl https://raw.githubusercontent.com/lmule/vim/master/install.sh )"`
+> `bash -c "$( curl https://raw.githubusercontent.com/bearsiji/vim/master/install.sh )"`
 
 ##4. Feature
 ###4.1 KeyMap
