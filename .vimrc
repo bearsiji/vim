@@ -45,7 +45,7 @@ set formatoptions=tq
 set encoding=utf-8 nobomb
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set termencoding=utf-8
+set termencoding=gb18030
 set langmenu=zh_CN.UTF-8
 set laststatus=2
 set cpt=.,w,b,k,i,t
@@ -124,9 +124,9 @@ endif
 
 " highlight current line
 set cursorline
-hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-set colorcolumn=120
-hi colorcolumn guifg=darkgreen
+hi CursorLine cterm=NONE ctermbg=darkgreen ctermfg=blue guibg=dark guifg=white
+"set colorcolumn=120
+"hi colorcolumn guifg=darkgreen
 
 " 更新vimrc时另当前缓冲区全部重加载vimrc
 autocmd! BufWritePost .vimrc source ~/.vimrc
@@ -134,10 +134,10 @@ autocmd filetype smarty,tpl let &l:filetype='html'
 set keywordprg=:help
 let s:vimfile = '~/.vim/'
 " 多窗口时调整当前窗口的大小
-nnoremap <Up> <C-w>10+
-nnoremap <Down> <C-w>10-
-nnoremap <Left> <C-w>10<
-nnoremap <right> <C-w>10>
+"nnoremap <Up> <C-w>10+
+"nnoremap <Down> <C-w>10-
+"nnoremap <Left> <C-w>10<
+"nnoremap <right> <C-w>10>
 " 从minibuffer里面移植过来的
 noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
@@ -239,12 +239,22 @@ map <F2> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeShowHidden=1
+let g:NERDTreeDirArrows=0
 
+"以后可以换成tagbar
 Bundle 'taglist.vim'
 let Tlist_Exit_OnlyWindow=1
+let Tlist_Use_Right_Window = 1 
 map <F4> :TlistToggle<CR>
 
+set tags=tags; 
+set autochdir
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>  
+map <F11> :nohlsearch<CR>  
+
 Bundle 'brookhong/cscope.vim'
+nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>
 
 Bundle "lykling/fecs.vim"
 
@@ -296,7 +306,7 @@ let g:UltiSnipsExpandTrigger="<TAB>"
 Bundle "comments.vim"
 
 Bundle "tomasr/molokai"
-silent! colorscheme molokai
+"silent! colorscheme molokai
 
 Bundle 'Valloric/MatchTagAlways'
 
@@ -308,3 +318,31 @@ call vundle#end()
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+function! AutoLoadCTagsAndCScope()
+    let max = 20
+    let dir = './'
+    let i = 0
+    let break = 0
+    while isdirectory(dir) && i < max
+        if filereadable(dir . 'GTAGS')
+            execute 'cs add ' . dir . 'GTAGS ' . glob("`pwd`")
+            let break = 1
+        endif
+        if filereadable(dir . 'cscope.out')
+            execute 'cs add ' . dir . 'cscope.out'
+            let break = 1
+        endif
+        if filereadable(dir . 'tags')
+            execute 'set tags =' . dir . 'tags'
+            let break = 1
+        endif
+        if break == 1
+            execute 'lcd ' . dir
+            break
+        endif
+        let dir = dir . '../'
+        let i = i + 1
+    endwhile
+endf
+nmap <F7> :call AutoLoadCTagsAndCScope()<CR>
