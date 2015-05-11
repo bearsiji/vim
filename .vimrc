@@ -1,6 +1,6 @@
 " Disable Vi compatibility
 set nocompatible
-colorscheme default
+colorscheme desert
 
 "set list
 "set listchars=tab:.\
@@ -37,7 +37,7 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start
 
-" set mouse=a
+set mouse=
 set guioptions+=a
 set expandtab
 set formatoptions=tq
@@ -45,7 +45,7 @@ set formatoptions=tq
 set encoding=utf-8 nobomb
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set termencoding=gb18030
+set termencoding=utf-8
 set langmenu=zh_CN.UTF-8
 set laststatus=2
 set cpt=.,w,b,k,i,t
@@ -124,9 +124,9 @@ endif
 
 " highlight current line
 set cursorline
-hi CursorLine cterm=NONE ctermbg=darkgreen ctermfg=blue guibg=dark guifg=white
+hi CursorLine cterm=bold ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 "set colorcolumn=120
-"hi colorcolumn guifg=darkgreen
+hi colorcolumn guifg=darkgreen
 
 " 更新vimrc时另当前缓冲区全部重加载vimrc
 autocmd! BufWritePost .vimrc source ~/.vimrc
@@ -180,7 +180,7 @@ Bundle 'Shougo/neocomplcache.vim'
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_at_startup = 0
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
@@ -258,21 +258,21 @@ nnoremap <leader>l :call ToggleLocationList()<CR>
 
 Bundle "lykling/fecs.vim"
 
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 " npm install -g jshint for js syntax check
 " npm install -g csslint for css syntax check
-let g:syntastic_javascript_checkers=['fecs']
-set statusline+=%#warningmsg#
-if exists("*SyntasticStatuslineFlag")
-    set statusline+=%{SyntasticStatuslineFlag()}
-endif
-set statusline+=%*
-let g:syntastic_ignore_files=[".*\.py$"]
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_enable_balloons = 1
-let g:syntastic_loc_list_height = 5
+"let g:syntastic_javascript_checkers=['fecs']
+"set statusline+=%#warningmsg#
+"if exists("*SyntasticStatuslineFlag")
+"    set statusline+=%{SyntasticStatuslineFlag()}
+"endif
+"set statusline+=%*
+"let g:syntastic_ignore_files=[".*\.py$"]
+"let g:syntastic_always_populate_loc_list=0
+"let g:syntastic_auto_loc_list=0
+"let g:syntastic_check_on_wq=0
+"let g:syntastic_enable_balloons = 0
+"let g:syntastic_loc_list_height = 5
 autocmd filetype tpl,html let b:match_words = '<:>,'.
             \ '<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,' .
             \ '<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,' .
