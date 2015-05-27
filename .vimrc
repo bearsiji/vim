@@ -1,6 +1,5 @@
 " Disable Vi compatibility
 set nocompatible
-colorscheme desert
 
 "set list
 "set listchars=tab:.\
@@ -241,6 +240,8 @@ let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeShowHidden=1
 let g:NERDTreeDirArrows=0
 
+Bundle 'The-NERD-Commenter'
+
 "以后可以换成tagbar
 Bundle 'taglist.vim'
 let Tlist_Exit_OnlyWindow=1
@@ -313,6 +314,20 @@ Bundle 'Valloric/MatchTagAlways'
 Bundle "lmule/vim-var_dump"
 
 Bundle "jiangmiao/auto-pairs"
+
+"Bundle "c.vim"
+
+Bundle "DoxygenToolkit.vim"
+
+map fg : Dox<cr>
+let g:DoxygenToolkit_authorName="wangzijian02"
+let g:DoxygenToolkit_licenseTag="My own license\<enter>"
+let g:DoxygenToolkit_undocTag="DOXIGEN_SKIP_BLOCK"
+let g:DoxygenToolkit_briefTag_pre = "@brief\t"
+let g:DoxygenToolkit_paramTag_pre = "@param:\t"
+let g:DoxygenToolkit_returnTag = "@return\t"
+let g:DoxygenToolkit_briefTag_funcName = "no"
+let g:DoxygenToolkit_maxFunctionProtoLines = 30
 
 call vundle#end()
 if filereadable(expand("~/.vimrc.local"))
